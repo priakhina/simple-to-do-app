@@ -1,0 +1,19 @@
+#root {
+  background: url('/src/assets/images/bg-desktop-light.jpg') 0 0 no-repeat;
+  background-size: 100% 300px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #494c6b;
+  background: #fafafa;
+}

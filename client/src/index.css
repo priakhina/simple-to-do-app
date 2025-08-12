@@ -1,12 +1,11 @@
-@import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import 'tailwindcss';
 
 :root {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 18px;
   line-height: 1.5;
   font-weight: 400;
-
   color: #494c6b;
   background-color: #fafafa;
 }
