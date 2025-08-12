@@ -37,7 +37,20 @@ app.get('/api/todos', (req, res) => {
   res.send(todos);
 });
 
-// Update a todo (mark the todo as complete)
+// Create a new todo
+app.post('/api/todos', (req, res) => {
+  const { text } = req.body;
+
+  if (!text) {
+    return res.status(400).send('Text is required');
+  }
+
+  const newTodo = { id: Date.now(), text, completed: false };
+  todos.push(newTodo);
+  res.status(201).send(newTodo);
+});
+
+// Update an existing todo (mark the todo as complete)
 app.put('/api/todos/:id', (req, res) => {
   todos[req.todoIndex] = req.body;
   res.send(todos[req.todoIndex]);

@@ -7,9 +7,14 @@ const getAll = async () => {
   return response.data;
 };
 
+const create = async (newTodo) => {
+  const response = await axios.post(BASE_URL, newTodo);
+  return response.data;
+};
+
 const update = async (id, updatedTodo) => {
   const response = await axios.put(`${BASE_URL}/${id}`, updatedTodo);
   return response.data;
 };
 
-export default { getAll, update };
+export default { getAll, create, update };

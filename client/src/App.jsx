@@ -22,6 +22,16 @@ function App() {
     }
   };
 
+  const handleAddTodo = async (newTodo) => {
+    try {
+      const returnedTodo = await todoService.create(newTodo);
+      setTodos([...todos, returnedTodo]);
+    } catch (e) {
+      console.error('Failed to create a new todo');
+      console.error(e.message);
+    }
+  };
+
   const handleToggleCompleted = async (id) => {
     const todoToUpdate = todos.find((todo) => todo.id === id);
     if (!todoToUpdate) return;
@@ -44,7 +54,7 @@ function App() {
         Todo
       </h1>
       <div className='flex flex-col space-y-[24px]'>
-        <AddTodo />
+        <AddTodo onAddTodo={handleAddTodo} />
         <TodoList todoItems={todos} onToggleCompleted={handleToggleCompleted} />
       </div>
     </div>
