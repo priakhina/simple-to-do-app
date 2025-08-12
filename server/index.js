@@ -56,6 +56,12 @@ app.put('/api/todos/:id', (req, res) => {
   res.send(todos[req.todoIndex]);
 });
 
+// Delete an existing todo
+app.delete('/api/todos/:id', (req, res) => {
+  todos.splice(req.todoIndex, 1);
+  res.status(204).send();
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

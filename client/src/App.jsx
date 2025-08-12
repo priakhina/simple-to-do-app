@@ -48,6 +48,16 @@ function App() {
     }
   };
 
+  const handleDeleteTodo = async (id) => {
+    try {
+      await todoService.remove(id);
+      setTodos(todos.filter((todo) => todo.id !== id));
+    } catch (e) {
+      console.error('Failed to delete a todo');
+      console.error(e.message);
+    }
+  };
+
   return (
     <div className='max-w-[540px] mx-auto py-[70px]'>
       <h1 className='text-[40px] text-white font-bold uppercase tracking-[15px] mb-[40px]'>
@@ -55,7 +65,11 @@ function App() {
       </h1>
       <div className='flex flex-col space-y-[24px]'>
         <AddTodo onAddTodo={handleAddTodo} />
-        <TodoList todoItems={todos} onToggleCompleted={handleToggleCompleted} />
+        <TodoList
+          todoItems={todos}
+          onToggleCompleted={handleToggleCompleted}
+          onDelete={handleDeleteTodo}
+        />
       </div>
     </div>
   );
