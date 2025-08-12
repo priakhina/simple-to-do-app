@@ -22,6 +22,22 @@ function App() {
     }
   };
 
+  const handleToggleCompleted = async (id) => {
+    const todoToUpdate = todos.find((todo) => todo.id === id);
+    if (!todoToUpdate) return;
+
+    try {
+      const updatedTodo = await todoService.update(id, {
+        ...todoToUpdate,
+        completed: !todoToUpdate.completed,
+      });
+      setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
+    } catch (e) {
+      console.error('Failed to update a todo');
+      console.error(e.message);
+    }
+  };
+
   return (
     <div className='max-w-[540px] mx-auto py-[70px]'>
       <h1 className='text-[40px] text-white font-bold uppercase tracking-[15px] mb-[40px]'>
@@ -29,7 +45,7 @@ function App() {
       </h1>
       <div className='flex flex-col space-y-[24px]'>
         <AddTodo />
-        <TodoList todoItems={todos} />
+        <TodoList todoItems={todos} onToggleCompleted={handleToggleCompleted} />
       </div>
     </div>
   );
