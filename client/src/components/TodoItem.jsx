@@ -8,24 +8,29 @@ const TodoItem = ({ todoItem, onToggleCompleted, onDelete }) => {
 
   return (
     <div className='group flex items-center space-x-[24px] w-full p-[20px_24px] bg-white rounded-[5px]'>
-      {/* Hidden real checkbox */}
-      <input
-        id={`todo-${id}`}
-        type='checkbox'
-        checked={completed}
-        className='peer hidden'
-        onChange={() => onToggleCompleted(id)}
-      />
-      {/* Visual checkbox */}
-      <span className='relative flex w-[24px] h-[24px] shrink-0 rounded-full border border-[#E3E4F1] cursor-pointer peer-checked:before:absolute peer-checked:before:content-[""] peer-checked:before:w-[10px] peer-checked:before:h-[8px] peer-checked:before:bg-[url("/icons/icon-check.svg")] peer-checked:before:bg-no-repeat peer-checked:before:bg-center peer-checked:before:bg-cover peer-checked:before:top-1/2 peer-checked:before:left-1/2 peer-checked:before:-translate-x-1/2 peer-checked:before:-translate-y-1/2 peer-checked:border-0 peer-checked:bg-linear-to-r peer-checked:from-[#55DDFF] peer-checked:to-[#C058F3]' />
-      {/* Todo text */}
+      {/* Checkbox and text */}
       <label
         htmlFor={`todo-${id}`}
-        className={`w-full select-none cursor-pointer ${
-          completed ? 'line-through text-[#D1D2DA]' : ''
-        }`}
+        className='flex flex-grow items-center space-x-[24px]'
       >
-        {text}
+        {/* Hidden real checkbox */}
+        <input
+          id={`todo-${id}`}
+          type='checkbox'
+          checked={completed}
+          className='peer hidden'
+          onChange={() => onToggleCompleted(id)}
+        />
+        {/* Visual checkbox */}
+        <span className='flex w-[24px] h-[24px] shrink-0 cursor-pointer bg-[url("/icons/icon-check-default-light.svg")] bg-no-repeat group-hover:bg-[url("/icons/icon-check-hover-light.svg")] peer-checked:bg-[url("/icons/icon-check-active-light.svg")]' />
+        {/* Todo text */}
+        <span
+          className={`w-full select-none cursor-pointer ${
+            completed ? 'line-through text-[#D1D2DA]' : ''
+          }`}
+        >
+          {text}
+        </span>
       </label>
       {/* Delete button - hidden by default, shown on hover */}
       <button
@@ -37,7 +42,7 @@ const TodoItem = ({ todoItem, onToggleCompleted, onDelete }) => {
         open={showDialog}
         setOpen={setShowDialog}
         dialogTitle='Delete todo'
-        dialogText={`Are you sure you want to delete the todo item:\n"${text}"?\n This action cannot be undone.`}
+        dialogText={`Are you sure you want to delete the todo item:\n"${text}"?\nThis action cannot be undone.`}
         confirmButtonText='Delete'
         onConfirmDelete={() => onDelete(id)}
       />
