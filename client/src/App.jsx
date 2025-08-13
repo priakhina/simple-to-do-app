@@ -7,6 +7,7 @@ import './App.css';
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all'); // 'all' | 'active' | 'completed'
 
   useEffect(() => {
     fetchTodos();
@@ -58,6 +59,16 @@ function App() {
     }
   };
 
+  // Filter the todo items before passing them to TodoList
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === 'active') return !todo.completed;
+    if (filter === 'completed') return todo.completed;
+    return true;
+  });
+
+  // Count active items
+  const itemsLeft = todos.filter((todo) => !todo.completed).length;
+
   return (
     <div className='max-w-[540px] mx-auto py-[70px]'>
       <h1 className='text-[40px] text-white font-bold uppercase tracking-[15px] mb-[40px]'>
@@ -66,7 +77,10 @@ function App() {
       <div className='flex flex-col space-y-[24px]'>
         <AddTodo onAddTodo={handleAddTodo} />
         <TodoList
-          todoItems={todos}
+          todoItems={filteredTodos}
+          itemsLeft={itemsLeft}
+          filter={filter}
+          setFilter={setFilter}
           onToggleCompleted={handleToggleCompleted}
           onDelete={handleDeleteTodo}
         />
