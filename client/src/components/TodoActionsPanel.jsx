@@ -7,7 +7,13 @@ const ACTIVE_COLOR = 'text-[#3A7CFD]';
 const INACTIVE_COLOR = 'text-[#9495A5]';
 const HOVER_COLOR = 'hover:text-[#494C6B]';
 
-const TodoActionsPanel = ({ itemsLeft, filter, setFilter, actions }) => {
+const TodoActionsPanel = ({
+  itemsCompleted,
+  itemsLeft,
+  filter,
+  setFilter,
+  actions,
+}) => {
   const [showDialog, setShowDialog] = useState(false);
 
   return (
@@ -33,12 +39,14 @@ const TodoActionsPanel = ({ itemsLeft, filter, setFilter, actions }) => {
           ))}
         </div>
         {/* Right: Clear Completed button */}
-        <button
-          className='text-[16px] text-[#494C6B]'
-          onClick={() => setShowDialog(true)}
-        >
-          Clear Completed
-        </button>
+        {itemsCompleted !== 0 && (
+          <button
+            className='text-[16px] text-[#494C6B]'
+            onClick={() => setShowDialog(true)}
+          >
+            Clear Completed
+          </button>
+        )}
       </div>
       {/* Modal dialog */}
       <ModalDialog
