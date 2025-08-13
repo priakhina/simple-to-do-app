@@ -22,4 +22,9 @@ const remove = async (id) => {
   return response.data;
 };
 
-export default { getAll, create, update, remove };
+const removeCompleted = async () => {
+  const response = await axios.delete(`${BASE_URL}/completed`);
+  return response.data;
+};
+
+export default { getAll, create, update, remove, removeCompleted };

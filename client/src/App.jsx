@@ -59,6 +59,16 @@ function App() {
     }
   };
 
+  const handleDeleteCompleted = async () => {
+    try {
+      const updatedTodos = await todoService.removeCompleted();
+      setTodos(updatedTodos);
+    } catch (e) {
+      console.error('Failed to delete completed todos');
+      console.error(e.message);
+    }
+  };
+
   // Filter the todo items before passing them to TodoList
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'active') return !todo.completed;
@@ -83,6 +93,7 @@ function App() {
           setFilter={setFilter}
           onToggleCompleted={handleToggleCompleted}
           onDelete={handleDeleteTodo}
+          onDeleteCompleted={handleDeleteCompleted}
         />
       </div>
     </div>

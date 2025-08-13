@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import TodoItem from './TodoItem';
+import ModalDialog from './ModalDialog';
 
 const FILTER_STATES = ['all', 'active', 'completed'];
 const BASE_BUTTON_CLASSES = 'capitalize transition-colors';
@@ -13,7 +15,10 @@ const TodoList = ({
   setFilter,
   onToggleCompleted,
   onDelete,
+  onDeleteCompleted,
 }) => {
+  const [showDialog, setShowDialog] = useState(false);
+
   return (
     <div className='shadow-[0px_35px_50px_-15px_rgba(194,195,214,0.5)] bg-white rounded-[5px]'>
       {/* Filtered todo items */}
@@ -63,8 +68,22 @@ const TodoList = ({
           ))}
         </div>
         {/* Right: Clear Completed button */}
-        <button className='text-[16px] text-[#494C6B]'>Clear Completed</button>
+        <button
+          className='text-[16px] text-[#494C6B]'
+          onClick={() => setShowDialog(true)}
+        >
+          Clear Completed
+        </button>
       </div>
+      {/* Modal dialog */}
+      <ModalDialog
+        open={showDialog}
+        setOpen={setShowDialog}
+        dialogTitle='Delete completed todos'
+        dialogText={`Are you sure you want to delete all completed todos?\nThis action cannot be undone.`}
+        confirmButtonText='Delete'
+        onConfirmDelete={onDeleteCompleted}
+      />
     </div>
   );
 };

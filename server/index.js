@@ -34,7 +34,7 @@ app.param('id', (req, res, next, id) => {
 
 // Get all todos
 app.get('/api/todos', (req, res) => {
-  res.send(todos);
+  res.json(todos);
 });
 
 // Create a new todo
@@ -47,19 +47,25 @@ app.post('/api/todos', (req, res) => {
 
   const newTodo = { id: Date.now(), text, completed: false };
   todos.push(newTodo);
-  res.status(201).send(newTodo);
+  res.status(201).json(newTodo);
 });
 
 // Update an existing todo (mark the todo as complete)
 app.put('/api/todos/:id', (req, res) => {
   todos[req.todoIndex] = req.body;
-  res.send(todos[req.todoIndex]);
+  res.json(todos[req.todoIndex]);
+});
+
+// Delete all completed todos
+app.delete('/api/todos/completed', (req, res) => {
+  todos.splice(0, todos.length, ...todos.filter((todo) => !todo.completed));
+  res.json(todos);
 });
 
 // Delete an existing todo
 app.delete('/api/todos/:id', (req, res) => {
   todos.splice(req.todoIndex, 1);
-  res.status(204).send();
+  res.status(204).end();
 });
 
 app.listen(PORT, () => {
