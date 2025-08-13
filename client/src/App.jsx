@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import todoService from './services/todoService.js';
 import AddTodo from './components/AddTodo';
-import TodoList from './components/TodoList';
+import TodosContainer from './components/TodosContainer';
 
 import './App.css';
 
 function App() {
   const [todos, setTodos] = useState([]);
-  const [filter, setFilter] = useState('all'); // 'all' | 'active' | 'completed'
 
   useEffect(() => {
     fetchTodos();
@@ -23,7 +22,7 @@ function App() {
     }
   };
 
-  const handleAddTodo = async (newTodo) => {
+  const handleAdd = async (newTodo) => {
     try {
       const returnedTodo = await todoService.create(newTodo);
       setTodos([...todos, returnedTodo]);
@@ -33,7 +32,7 @@ function App() {
     }
   };
 
-  const handleToggleCompleted = async (id) => {
+  const handleToggle = async (id) => {
     const todoToUpdate = todos.find((todo) => todo.id === id);
     if (!todoToUpdate) return;
 
@@ -49,7 +48,7 @@ function App() {
     }
   };
 
-  const handleDeleteTodo = async (id) => {
+  const handleDelete = async (id) => {
     try {
       await todoService.remove(id);
       setTodos(todos.filter((todo) => todo.id !== id));
@@ -69,30 +68,17 @@ function App() {
     }
   };
 
-  // Filter the todo items before passing them to TodoList
-  const filteredTodos = todos.filter((todo) => {
-    if (filter === 'active') return !todo.completed;
-    if (filter === 'completed') return todo.completed;
-    return true;
-  });
-
-  // Count active items
-  const itemsLeft = todos.filter((todo) => !todo.completed).length;
-
   return (
     <div className='max-w-[540px] mx-auto py-[70px]'>
       <h1 className='text-[40px] text-white font-bold uppercase tracking-[15px] mb-[40px]'>
         Todo
       </h1>
       <div className='flex flex-col space-y-[24px]'>
-        <AddTodo onAddTodo={handleAddTodo} />
-        <TodoList
-          todoItems={filteredTodos}
-          itemsLeft={itemsLeft}
-          filter={filter}
-          setFilter={setFilter}
-          onToggleCompleted={handleToggleCompleted}
-          onDelete={handleDeleteTodo}
+        <AddTodo onAdd={handleAdd} />
+        <TodosContainer
+          todos={todos}
+          onToggle={handleToggle}
+          onDelete={handleDelete}
           onDeleteCompleted={handleDeleteCompleted}
         />
       </div>

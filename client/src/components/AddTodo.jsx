@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const AddTodo = ({ onAddTodo }) => {
+const AddTodo = ({ onAdd }) => {
   const [text, setText] = useState('');
 
   const handleSubmit = (e) => {
@@ -9,7 +9,7 @@ const AddTodo = ({ onAddTodo }) => {
     if (!text.trim()) return;
 
     const newTodo = { text };
-    onAddTodo(newTodo);
+    onAdd(newTodo);
     setText('');
   };
 
