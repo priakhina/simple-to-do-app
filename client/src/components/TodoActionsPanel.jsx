@@ -4,8 +4,8 @@ import ModalDialog from './ModalDialog';
 const FILTER_STATES = ['all', 'active', 'completed'];
 const BASE_BUTTON_CLASSES = 'capitalize transition-colors';
 const ACTIVE_COLOR = 'text-[#3A7CFD]';
-const INACTIVE_COLOR = 'text-[#9495A5]';
-const HOVER_COLOR = 'hover:text-[#494C6B]';
+const INACTIVE_COLOR = 'text-[#9495A5] dark:text-[#5B5E7E]';
+const HOVER_COLOR = 'hover:text-[#494C6B] dark:hover:text-[#E3E4F1]';
 
 const TodoActionsPanel = ({
   itemsCompleted,
@@ -21,7 +21,7 @@ const TodoActionsPanel = ({
       {/* Actions panel */}
       <div className='relative flex items-center justify-between p-[20px_24px]'>
         {/* Left: items left count */}
-        <span className='text-[16px] text-[#9495A5]'>{`${itemsLeft} item${
+        <span className='text-[16px] text-[#9495A5] dark:text-[#5B5E7E]'>{`${itemsLeft} item${
           itemsLeft === 1 ? '' : 's'
         } left`}</span>
         {/* CenterL filter buttons */}
@@ -41,7 +41,7 @@ const TodoActionsPanel = ({
         {/* Right: Clear Completed button */}
         {itemsCompleted !== 0 && (
           <button
-            className='text-[16px] text-[#494C6B]'
+            className={`text-[16px] ${INACTIVE_COLOR} ${HOVER_COLOR}`}
             onClick={() => setShowDialog(true)}
           >
             Clear Completed

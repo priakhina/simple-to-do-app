@@ -21,7 +21,7 @@ const TodosContainer = ({ todos, onToggle, onDelete, onDeleteCompleted }) => {
   // Display a message when the todo list is empty
   if (todos.length === 0) {
     return (
-      <div className='bg-white rounded-[5px] shadow-[0px_35px_50px_-15px_rgba(194,195,214,0.5)]'>
+      <div className='bg-white dark:bg-[#25273D] rounded-[5px] shadow-[0px_35px_50px_-15px_rgba(194,195,214,0.5)] dark:shadow-[0px_35px_50px_-15px_rgba(0,0,0,0.5)]'>
         <p className='p-[20px_24px] text-center'>
           Nothing to do... yet!
           <br />
@@ -33,7 +33,7 @@ const TodosContainer = ({ todos, onToggle, onDelete, onDeleteCompleted }) => {
   }
 
   return (
-    <div className='bg-white rounded-[5px] shadow-[0px_35px_50px_-15px_rgba(194,195,214,0.5)]'>
+    <div className='bg-white dark:bg-[#25273D] rounded-[5px] shadow-[0px_35px_50px_-15px_rgba(194,195,214,0.5)] dark:shadow-[0px_35px_50px_-15px_rgba(0,0,0,0.5)]'>
       {filteredTodos.length !== 0 && (
         <TodoList
           todoItems={filteredTodos}
@@ -41,12 +41,12 @@ const TodosContainer = ({ todos, onToggle, onDelete, onDeleteCompleted }) => {
         />
       )}
       {filteredTodos.length === 0 && filter === 'active' && (
-        <p className='p-[20px_24px] text-center border-b border-b-[#E3E4F1]'>
+        <p className='p-[20px_24px] text-center border-b border-b-[#E3E4F1] dark:border-b-[#393A4B]'>
           Woohoo! You're all done. Enjoy your free time.
         </p>
       )}
       {filteredTodos.length === 0 && filter === 'completed' && (
-        <p className='p-[20px_24px] text-center border-b border-b-[#E3E4F1]'>
+        <p className='p-[20px_24px] text-center border-b border-b-[#E3E4F1] dark:border-b-[#393A4B]'>
           No victories here yet. Check something off to celebrate.
         </p>
       )}

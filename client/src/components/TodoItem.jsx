@@ -7,7 +7,7 @@ const TodoItem = ({ todoItem, onToggleCompleted, onDelete }) => {
   const { id, text, completed } = todoItem;
 
   return (
-    <div className='group flex items-center space-x-[24px] w-full p-[20px_24px] bg-transparent border-b border-b-[#E3E4F1]'>
+    <div className='group flex items-center space-x-[24px] w-full p-[20px_24px] bg-transparent border-b border-b-[#E3E4F1] dark:border-b-[#393A4B]'>
       {/* Checkbox and text */}
       <label
         htmlFor={`todo-${id}`}
@@ -22,11 +22,11 @@ const TodoItem = ({ todoItem, onToggleCompleted, onDelete }) => {
           onChange={() => onToggleCompleted(id)}
         />
         {/* Visual checkbox */}
-        <span className='flex w-[24px] h-[24px] shrink-0 cursor-pointer bg-[url("/icons/icon-check-default-light.svg")] bg-no-repeat group-hover:bg-[url("/icons/icon-check-hover-light.svg")] peer-checked:bg-[url("/icons/icon-check-active-light.svg")]' />
+        <span className='flex w-[24px] h-[24px] shrink-0 cursor-pointer bg-[url("/icons/icon-check-default-light.svg")] dark:bg-[url("/icons/icon-check-default-dark.svg")] bg-no-repeat group-hover:bg-[url("/icons/icon-check-hover-light.svg")] peer-checked:bg-[url("/icons/icon-check-active-light.svg")]' />
         {/* Todo text */}
         <span
           className={`w-full select-none cursor-pointer ${
-            completed ? 'line-through text-[#D1D2DA]' : ''
+            completed ? 'line-through text-[#D1D2DA] dark:text-[#4D5067]' : ''
           }`}
         >
           {text}
@@ -34,7 +34,7 @@ const TodoItem = ({ todoItem, onToggleCompleted, onDelete }) => {
       </label>
       {/* Delete button - hidden by default, shown on hover */}
       <button
-        className='block shrink-0 w-[18px] h-[18px] group-hover:bg-[url("/icons/icon-cross.svg")] bg-no-repeat'
+        className='block shrink-0 w-[18px] h-[18px] group-hover:bg-[url("/icons/icon-cross-light.svg")] dark:group-hover:bg-[url("/icons/icon-cross-dark.svg")] bg-no-repeat'
         onClick={() => setShowDialog(true)}
       ></button>
       {/* Modal dialog */}

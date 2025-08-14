@@ -6,7 +6,26 @@ import TodosContainer from './components/TodosContainer';
 import './App.css';
 
 function App() {
+  const systemPrefersDark = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches;
+
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme === 'dark';
+    return systemPrefersDark;
+  });
   const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [darkMode]);
 
   useEffect(() => {
     fetchTodos();
@@ -70,9 +89,15 @@ function App() {
 
   return (
     <div className='max-w-[540px] mx-auto py-[70px]'>
-      <h1 className='text-[40px] text-white font-bold uppercase tracking-[15px] mb-[40px]'>
-        Todo
-      </h1>
+      <div className='flex justify-between items-center mb-[40px]'>
+        <h1 className='text-[40px] text-white font-bold uppercase tracking-[15px] pb-[10px]'>
+          Todo
+        </h1>
+        <button
+          className='w-[26px] h-[26px] bg-[url("/icons/icon-moon.svg")] dark:bg-[url("/icons/icon-sun.svg")] bg-no-repeat'
+          onClick={() => setDarkMode((prev) => !prev)}
+        ></button>
+      </div>
       <div className='flex flex-col space-y-[24px]'>
         <AddTodo onAdd={handleAdd} />
         <TodosContainer

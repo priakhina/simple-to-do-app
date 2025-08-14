@@ -3,6 +3,10 @@
   background-size: 100% 300px;
 }
 
+.dark #root {
+  background-image: url('/images/bg-desktop-dark.jpg');
+}
+
 html,
 body,
 #root {
@@ -16,6 +20,11 @@ body {
   font-weight: 400;
   color: #494c6b;
   background: #fafafa;
+}
+
+.dark body {
+  color: #c8cbe7;
+  background: #171823;
 }
 
 button {
