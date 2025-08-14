@@ -88,17 +88,18 @@ function App() {
   };
 
   return (
-    <div className='max-w-[540px] mx-auto py-[70px]'>
-      <div className='flex justify-between items-center mb-[40px]'>
-        <h1 className='text-[40px] text-white font-bold uppercase tracking-[15px] pb-[10px]'>
+    <div className='max-w-[540px] mx-auto px-[24px] md:px-0 py-[45px] md:py-[70px]'>
+      <div className='flex justify-between items-center mb-[20px] md:mb-[40px]'>
+        <h1 className='text-[25px] md:text-[40px] text-white font-bold uppercase tracking-[15px] md:pb-[10px]'>
           Todo
         </h1>
         <button
           className='w-[26px] h-[26px] bg-[url("/icons/icon-moon.svg")] dark:bg-[url("/icons/icon-sun.svg")] bg-no-repeat'
+          aria-label={`Switch to ${darkMode ? 'dark' : 'light'} theme`}
           onClick={() => setDarkMode((prev) => !prev)}
         ></button>
       </div>
-      <div className='flex flex-col space-y-[24px]'>
+      <div className='flex flex-col space-y-[16px] md:space-y-[24px]'>
         <AddTodo onAdd={handleAdd} />
         <TodosContainer
           todos={todos}

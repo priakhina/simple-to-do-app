@@ -1,10 +1,10 @@
 #root {
-  background: url('/images/bg-desktop-light.jpg') 0 0 no-repeat;
-  background-size: 100% 300px;
+  background: url('/images/bg-mobile-light.jpg') 0 0 no-repeat;
+  background-size: 100% 200px;
 }
 
 .dark #root {
-  background-image: url('/images/bg-desktop-dark.jpg');
+  background-image: url('/images/bg-mobile-dark.jpg');
 }
 
 html,
@@ -15,7 +15,7 @@ body,
 
 body {
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 1.5;
   font-weight: 400;
   color: #494c6b;
@@ -29,4 +29,19 @@ body {
 
 button {
   cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+  #root {
+    background: url('/images/bg-desktop-light.jpg') 0 0 no-repeat;
+    background-size: 100% 300px;
+  }
+
+  .dark #root {
+    background-image: url('/images/bg-desktop-dark.jpg');
+  }
+
+  body {
+    font-size: 18px;
+  }
 }

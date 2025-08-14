@@ -1,9 +1,8 @@
 import { useState } from 'react';
+import TodoFilter from './TodoFilter';
 import ModalDialog from './ModalDialog';
 
-const FILTER_STATES = ['all', 'active', 'completed'];
 const BASE_BUTTON_CLASSES = 'capitalize transition-colors';
-const ACTIVE_COLOR = 'text-[#3A7CFD]';
 const INACTIVE_COLOR = 'text-[#9495A5] dark:text-[#5B5E7E]';
 const HOVER_COLOR = 'hover:text-[#494C6B] dark:hover:text-[#E3E4F1]';
 
@@ -19,29 +18,19 @@ const TodoActionsPanel = ({
   return (
     <>
       {/* Actions panel */}
-      <div className='relative flex items-center justify-between p-[20px_24px]'>
+      <div className='relative flex items-center justify-between p-[16px_20px] md:p-[20px_24px]'>
         {/* Left: items left count */}
-        <span className='text-[16px] text-[#9495A5] dark:text-[#5B5E7E]'>{`${itemsLeft} item${
+        <span className='text-[15px] md:text-[16px] text-[#9495A5] dark:text-[#5B5E7E]'>{`${itemsLeft} item${
           itemsLeft === 1 ? '' : 's'
         } left`}</span>
-        {/* CenterL filter buttons */}
-        <div className='absolute left-1/2 transform -translate-x-1/2 flex gap-[15px] text-[16px] font-semibold'>
-          {FILTER_STATES.map((state) => (
-            <button
-              key={state}
-              className={`${BASE_BUTTON_CLASSES} ${
-                filter === state ? ACTIVE_COLOR : INACTIVE_COLOR
-              } ${filter !== state ? HOVER_COLOR : ''}`}
-              onClick={() => setFilter(state)}
-            >
-              {state}
-            </button>
-          ))}
+        {/* Center: filter buttons */}
+        <div className='hidden md:flex absolute left-1/2 transform -translate-x-1/2'>
+          <TodoFilter filter={filter} setFilter={setFilter} />
         </div>
         {/* Right: Clear Completed button */}
         {itemsCompleted !== 0 && (
           <button
-            className={`text-[16px] ${INACTIVE_COLOR} ${HOVER_COLOR}`}
+            className={`text-[15px] md:text-[16px] ${BASE_BUTTON_CLASSES} ${INACTIVE_COLOR} ${HOVER_COLOR}`}
             onClick={() => setShowDialog(true)}
           >
             Clear Completed

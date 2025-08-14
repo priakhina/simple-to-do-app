@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import TodoList from './TodoList';
 import TodoActionsPanel from './TodoActionsPanel';
+import TodoFilter from './TodoFilter';
+
+const CONTAINER_CLASSES =
+  'bg-white dark:bg-[#25273D] rounded-[5px] shadow-[0px_35px_50px_-15px_rgba(194,195,214,0.5)] dark:shadow-[0px_35px_50px_-15px_rgba(0,0,0,0.5)]';
 
 const TodosContainer = ({ todos, onToggle, onDelete, onDeleteCompleted }) => {
   const [filter, setFilter] = useState('all'); // 'all' | 'active' | 'completed'
@@ -21,7 +25,7 @@ const TodosContainer = ({ todos, onToggle, onDelete, onDeleteCompleted }) => {
   // Display a message when the todo list is empty
   if (todos.length === 0) {
     return (
-      <div className='bg-white dark:bg-[#25273D] rounded-[5px] shadow-[0px_35px_50px_-15px_rgba(194,195,214,0.5)] dark:shadow-[0px_35px_50px_-15px_rgba(0,0,0,0.5)]'>
+      <div className={CONTAINER_CLASSES}>
         <p className='p-[20px_24px] text-center'>
           Nothing to do... yet!
           <br />
@@ -33,31 +37,36 @@ const TodosContainer = ({ todos, onToggle, onDelete, onDeleteCompleted }) => {
   }
 
   return (
-    <div className='bg-white dark:bg-[#25273D] rounded-[5px] shadow-[0px_35px_50px_-15px_rgba(194,195,214,0.5)] dark:shadow-[0px_35px_50px_-15px_rgba(0,0,0,0.5)]'>
-      {filteredTodos.length !== 0 && (
-        <TodoList
-          todoItems={filteredTodos}
-          actions={{ toggle: onToggle, delete: onDelete }}
+    <>
+      <div className={CONTAINER_CLASSES}>
+        {filteredTodos.length !== 0 && (
+          <TodoList
+            todoItems={filteredTodos}
+            actions={{ toggle: onToggle, delete: onDelete }}
+          />
+        )}
+        {filteredTodos.length === 0 && filter === 'active' && (
+          <p className='p-[20px_24px] text-center border-b border-b-[#E3E4F1] dark:border-b-[#393A4B]'>
+            Woohoo! You're all done. Enjoy your free time.
+          </p>
+        )}
+        {filteredTodos.length === 0 && filter === 'completed' && (
+          <p className='p-[20px_24px] text-center border-b border-b-[#E3E4F1] dark:border-b-[#393A4B]'>
+            No victories here yet. Check something off to celebrate.
+          </p>
+        )}
+        <TodoActionsPanel
+          itemsCompleted={itemsCompleted}
+          itemsLeft={itemsLeft}
+          filter={filter}
+          setFilter={setFilter}
+          actions={{ deleteCompleted: onDeleteCompleted }}
         />
-      )}
-      {filteredTodos.length === 0 && filter === 'active' && (
-        <p className='p-[20px_24px] text-center border-b border-b-[#E3E4F1] dark:border-b-[#393A4B]'>
-          Woohoo! You're all done. Enjoy your free time.
-        </p>
-      )}
-      {filteredTodos.length === 0 && filter === 'completed' && (
-        <p className='p-[20px_24px] text-center border-b border-b-[#E3E4F1] dark:border-b-[#393A4B]'>
-          No victories here yet. Check something off to celebrate.
-        </p>
-      )}
-      <TodoActionsPanel
-        itemsCompleted={itemsCompleted}
-        itemsLeft={itemsLeft}
-        filter={filter}
-        setFilter={setFilter}
-        actions={{ deleteCompleted: onDeleteCompleted }}
-      />
-    </div>
+      </div>
+      <div className='md:hidden p-[16px_20px] md:p-[20px_24px] bg-white dark:bg-[#25273D] rounded-[5px]'>
+        <TodoFilter filter={filter} setFilter={setFilter} />
+      </div>
+    </>
   );
 };
 
