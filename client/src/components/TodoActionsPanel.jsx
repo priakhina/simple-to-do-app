@@ -25,7 +25,7 @@ const TodoActionsPanel = ({
           itemsLeft === 1 ? '' : 's'
         } left`}</span>
         {/* CenterL filter buttons */}
-        <div className='absolute left-1/2 transform -translate-x-1/2 flex gap-[15px]'>
+        <div className='absolute left-1/2 transform -translate-x-1/2 flex gap-[15px] text-[16px] font-semibold'>
           {FILTER_STATES.map((state) => (
             <button
               key={state}

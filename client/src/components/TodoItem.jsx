@@ -7,7 +7,7 @@ const TodoItem = ({ todoItem, onToggleCompleted, onDelete }) => {
   const { id, text, completed } = todoItem;
 
   return (
-    <div className='group flex items-center space-x-[24px] w-full p-[20px_24px] bg-white rounded-[5px]'>
+    <div className='group flex items-center space-x-[24px] w-full p-[20px_24px] bg-transparent border-b border-b-[#E3E4F1]'>
       {/* Checkbox and text */}
       <label
         htmlFor={`todo-${id}`}
