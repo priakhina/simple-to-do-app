@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTheme } from './hooks/useTheme';
 import todoService from './services/todoService.js';
 import AddTodo from './components/AddTodo';
 import TodosContainer from './components/TodosContainer';
@@ -6,26 +7,8 @@ import TodosContainer from './components/TodosContainer';
 import './App.css';
 
 function App() {
-  const systemPrefersDark = window.matchMedia(
-    '(prefers-color-scheme: dark)'
-  ).matches;
-
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) return savedTheme === 'dark';
-    return systemPrefersDark;
-  });
+  const { isLight, switchTheme } = useTheme();
   const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [darkMode]);
 
   useEffect(() => {
     fetchTodos();
@@ -95,8 +78,8 @@ function App() {
         </h1>
         <button
           className='w-[26px] h-[26px] bg-[url("/icons/icon-moon.svg")] dark:bg-[url("/icons/icon-sun.svg")] bg-no-repeat'
-          aria-label={`Switch to ${darkMode ? 'dark' : 'light'} theme`}
-          onClick={() => setDarkMode((prev) => !prev)}
+          aria-label={`Switch to ${isLight ? 'dark' : 'light'} theme`}
+          onClick={switchTheme}
         ></button>
       </div>
       <div className='flex flex-col space-y-[16px] md:space-y-[24px]'>
