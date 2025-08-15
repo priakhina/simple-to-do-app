@@ -1,8 +1,6 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
-
-const PORT = 3001;
+const path = require('path');
 
 const todos = [
   {
@@ -17,7 +15,13 @@ const todos = [
   },
 ]; // In-memory storage of todo items
 
-app.use(cors()); // Enables Cross-Origin Resource Sharing (CORS) for all routes and origins
+const app = express();
+
+// Enable CORS in dev mode only
+if (process.env.NODE_ENV === 'development') {
+  app.use(cors()); // Enables Cross-Origin Resource Sharing (CORS) for all routes and origins
+}
+
 app.use(express.json()); // Built-in Express middleware; parses incoming requests with JSON payloads
 
 app.param('id', (req, res, next, id) => {
@@ -68,6 +72,17 @@ app.delete('/api/todos/:id', (req, res) => {
   res.status(204).end();
 });
 
+// Serve frontend in production
+if (process.env.NODE_ENV === 'production') {
+  const clientBuildPath = path.join(__dirname, '../client/dist');
+  app.use(express.static(clientBuildPath));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientBuildPath, 'index.html'));
+  });
+}
+
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
