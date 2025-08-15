@@ -43,8 +43,8 @@ function App() {
 
     try {
       const updatedTodo = await todoService.update(id, {
-        ...todoToUpdate,
-        completed: !todoToUpdate.completed,
+        text: todoToUpdate.text, // keep the same text
+        completed: !todoToUpdate.completed, // toggle "completed"
       });
       setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
     } catch (e) {

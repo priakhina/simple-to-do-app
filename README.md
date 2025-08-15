@@ -3,6 +3,7 @@
 A simple full-stack app that allows users to manage their to-dos.
 
 Built with:
+
 - **Frontend:** React + Vite + Tailwind CSS
 - **Backend:** Node.js + Express
 
@@ -18,6 +19,7 @@ Built with:
 ## Project Overview
 
 The app allows users to:
+
 - Add new to-dos to the list
 - Mark to-dos as complete/incomplete
 - Delete to-dos from the list
@@ -56,12 +58,13 @@ The app is deployed on Render: [https://simple-to-do-app-3eti.onrender.com](http
 </table>
 
 ## Project Structure
+
 ```
 .
 ├── client/            # React frontend (Vite + Tailwind CSS)
 ├── server/            # Express backend
 ├── package.json       # Root scripts for running and building the app
-├── package-lock.json  
+├── package-lock.json
 ├── .gitignore
 └── README.md
 ```
@@ -69,6 +72,7 @@ The app is deployed on Render: [https://simple-to-do-app-3eti.onrender.com](http
 ## Installation
 
 ### 1. Clone the repository
+
 ```
 git clone https://github.com/priakhina/simple-to-do-app.git
 cd simple-to-do-app
@@ -77,10 +81,13 @@ cd simple-to-do-app
 ### 2. Install dependencies
 
 Make sure you have [Node.js](https://nodejs.org/en) installed.
+
 ```
 npm run install-all
 ```
+
 This runs:
+
 - `npm install` for root
 - `npm install` inside `/client`
 - `npm install` inside `/server`
@@ -88,20 +95,24 @@ This runs:
 ## Local Development
 
 Run frontend & backend together from root:
+
 ```
 npm run dev
 ```
 
 This uses **concurrently**:
+
 - `npm run dev --prefix client` → starts Vite dev server
 - `npm run dev --prefix server` → starts Express server
 
 Frontend is available at:
+
 ```
 http://localhost:5173/
 ```
 
 Backend is available at:
+
 ```
 http://localhost:3001
 ```
@@ -109,11 +120,13 @@ http://localhost:3001
 ## Build and Production
 
 Build the frontend from root:
+
 ```
 npm run build
 ```
 
 Start production server from root:
+
 ```
 npm start
 ```
@@ -125,6 +138,7 @@ In production, Express serves the built React app from `/client/dist`.
 The backend provides a simple REST API for managing todos.
 
 ### Base URL
+
 ```
 http://localhost:3001/api/todos
 ```
@@ -163,6 +177,7 @@ POST /api/todos
 ```
 
 #### Body:
+
 ```
 {
   "text": "Cook dinner"
@@ -188,9 +203,9 @@ PUT /api/todos/:id
 ```
 
 #### Body:
+
 ```
 {
-  "id": 1755274527149,
   "text": "Cook dinner",
   "completed": true
 }

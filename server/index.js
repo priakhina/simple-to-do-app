@@ -23,12 +23,12 @@ app.param('id', (req, res, next, id) => {
     req.todoIndex = todoIndex;
     next();
   } else {
-    res.status(404).send('To-do item not found!');
+    res.status(404).send(`To-do item with ID "${id}" is not found`);
   }
 });
 
 // Get all to-dos
-app.get('/api/todos', (req, res) => {
+app.get('/api/todos', (_, res) => {
   res.json(todos);
 });
 
@@ -36,23 +36,52 @@ app.get('/api/todos', (req, res) => {
 app.post('/api/todos', (req, res) => {
   const { text } = req.body;
 
-  if (!text) {
-    return res.status(400).send('Text is required');
+  if (text === undefined) {
+    return res.status(400).send('"text" field is required');
+  }
+
+  if (typeof text !== 'string' || text.trim() === '') {
+    return res.status(400).send('"text" must be a non-empty string');
   }
 
   const newTodo = { id: Date.now(), text, completed: false };
+
   todos.push(newTodo);
   res.status(201).json(newTodo);
 });
 
-// Update an existing to-do (mark a to-do as completed)
+// Update an existing to-do
 app.put('/api/todos/:id', (req, res) => {
-  todos[req.todoIndex] = req.body;
-  res.json(todos[req.todoIndex]);
+  const { text, completed } = req.body;
+
+  if (text === undefined) {
+    return res.status(400).send('"text" field is required');
+  }
+
+  if (completed === undefined) {
+    return res.status(400).send('"completed" field is required');
+  }
+
+  if (typeof text !== 'string' || text.trim() === '') {
+    return res.status(400).send('"text" must be a non-empty string');
+  }
+
+  if (typeof completed !== 'boolean') {
+    return res.status(400).send('"completed" must be a boolean');
+  }
+
+  const updatedTodo = {
+    id: Number(req.params.id),
+    text,
+    completed,
+  };
+
+  todos[req.todoIndex] = updatedTodo;
+  res.json(updatedTodo);
 });
 
 // Delete all completed to-dos
-app.delete('/api/todos/completed', (req, res) => {
+app.delete('/api/todos/completed', (_, res) => {
   todos.splice(0, todos.length, ...todos.filter((todo) => !todo.completed));
   res.json(todos);
 });
