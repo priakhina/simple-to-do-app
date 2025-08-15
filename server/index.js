@@ -76,10 +76,6 @@ app.delete('/api/todos/:id', (req, res) => {
 if (process.env.NODE_ENV === 'production') {
   const clientBuildPath = path.join(__dirname, '../client/dist');
   app.use(express.static(clientBuildPath));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(clientBuildPath, 'index.html'));
-  });
 }
 
 const PORT = process.env.PORT || 3001;
