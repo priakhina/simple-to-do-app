@@ -19,7 +19,7 @@ const AddTodo = ({ onAdd }) => {
         <input
           id='todo'
           type='text'
-          placeholder='Create a new todo...'
+          placeholder='Create a new to-do...'
           className='w-full outline-none bg-transparent placeholder-[#9495A5] dark:placeholder-[#767992]'
           value={text}
           onChange={({ target }) => setText(target.value)}

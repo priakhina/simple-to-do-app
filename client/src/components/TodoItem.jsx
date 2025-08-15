@@ -13,7 +13,7 @@ const TodoItem = ({ todoItem, onToggleCompleted, onDelete }) => {
         htmlFor={`todo-${id}`}
         className='flex flex-grow items-center space-x-[24px]'
       >
-        {/* Hidden real checkbox */}
+        {/* Hidden actual checkbox */}
         <input
           id={`todo-${id}`}
           type='checkbox'
@@ -21,9 +21,9 @@ const TodoItem = ({ todoItem, onToggleCompleted, onDelete }) => {
           className='peer sr-only'
           onChange={() => onToggleCompleted(id)}
         />
-        {/* Visual checkbox */}
+        {/* Visual checkbox with custom styling */}
         <span className='flex w-[20px] md:w-[24px] h-[20px] md:h-[24px] shrink-0 cursor-pointer bg-[url("/icons/icon-check-default-light.svg")] dark:bg-[url("/icons/icon-check-default-dark.svg")] bg-no-repeat bg-contain group-hover:bg-[url("/icons/icon-check-hover-light.svg")] peer-checked:bg-[url("/icons/icon-check-active-light.svg")]' />
-        {/* Todo text */}
+        {/* To-do text */}
         <span
           className={`w-full select-none cursor-pointer ${
             completed ? 'line-through text-[#D1D2DA] dark:text-[#4D5067]' : ''
@@ -35,15 +35,15 @@ const TodoItem = ({ todoItem, onToggleCompleted, onDelete }) => {
       {/* Delete button - hidden from view on desktop, shown on hover */}
       <button
         className='block shrink-0 w-[12px] md:w-[18px] h-[12px] md:h-[18px] bg-[url("/icons/icon-cross-light.svg")] md:bg-none dark:bg-[url("/icons/icon-cross-dark.svg")] md:dark:bg-none md:group-hover:bg-[url("/icons/icon-cross-light.svg")] dark:md:group-hover:bg-[url("/icons/icon-cross-dark.svg")] bg-no-repeat bg-contain'
-        aria-label={`Delete todo: ${text}`}
+        aria-label={`Delete to-do: ${text}`}
         onClick={() => setShowDialog(true)}
       ></button>
-      {/* Modal dialog */}
+      {/* Modal dialog confirming the user's action - deleting a single to-do */}
       <ModalDialog
         open={showDialog}
         setOpen={setShowDialog}
-        dialogTitle='Delete todo'
-        dialogText={`Are you sure you want to delete the todo item:\n"${text}"?\nThis action cannot be undone.`}
+        dialogTitle='Delete to-do'
+        dialogText={`Are you sure you want to delete the to-do item:\n"${text}"?\nThis action cannot be undone.`}
         confirmButtonText='Delete'
         onConfirmDelete={() => onDelete(id)}
       />

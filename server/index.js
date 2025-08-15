@@ -2,20 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
-const todos = [
-  {
-    id: 1,
-    text: 'Start creating a todo app',
-    completed: true,
-  },
-  {
-    id: 2,
-    text: 'Complete creating a todo app',
-    completed: false,
-  },
-]; // In-memory storage of todo items
+const todos = []; // In-memory storage of to-do items
 
-const app = express();
+const app = express(); // An instance of an Express application
 
 // Enable CORS in dev mode only
 if (process.env.NODE_ENV === 'development') {
@@ -24,6 +13,8 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json()); // Built-in Express middleware; parses incoming requests with JSON payloads
 
+// When the id parameter is present in a route, look up the to-do in the todos array
+// If a to-do with the specified id exists, attach the todoIndex to the req object as req.todoIndex
 app.param('id', (req, res, next, id) => {
   const todoId = Number(id);
   const todoIndex = todos.findIndex((todo) => todo.id === todoId);
@@ -32,16 +23,16 @@ app.param('id', (req, res, next, id) => {
     req.todoIndex = todoIndex;
     next();
   } else {
-    res.status(404).send('Todo item not found!');
+    res.status(404).send('To-do item not found!');
   }
 });
 
-// Get all todos
+// Get all to-dos
 app.get('/api/todos', (req, res) => {
   res.json(todos);
 });
 
-// Create a new todo
+// Create a new to-do
 app.post('/api/todos', (req, res) => {
   const { text } = req.body;
 
@@ -54,19 +45,19 @@ app.post('/api/todos', (req, res) => {
   res.status(201).json(newTodo);
 });
 
-// Update an existing todo (mark the todo as complete)
+// Update an existing to-do (mark a to-do as completed)
 app.put('/api/todos/:id', (req, res) => {
   todos[req.todoIndex] = req.body;
   res.json(todos[req.todoIndex]);
 });
 
-// Delete all completed todos
+// Delete all completed to-dos
 app.delete('/api/todos/completed', (req, res) => {
   todos.splice(0, todos.length, ...todos.filter((todo) => !todo.completed));
   res.json(todos);
 });
 
-// Delete an existing todo
+// Delete an existing to-do
 app.delete('/api/todos/:id', (req, res) => {
   todos.splice(req.todoIndex, 1);
   res.status(204).end();

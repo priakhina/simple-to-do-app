@@ -9,7 +9,7 @@ const CONTAINER_CLASSES =
 const TodosContainer = ({ todos, onToggle, onDelete, onDeleteCompleted }) => {
   const [filter, setFilter] = useState('all'); // 'all' | 'active' | 'completed'
 
-  // Filter the todo items before passing them to TodoList
+  // Filter the to-do items before passing them to TodoList
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'active') return !todo.completed;
     if (filter === 'completed') return todo.completed;
@@ -22,7 +22,7 @@ const TodosContainer = ({ todos, onToggle, onDelete, onDeleteCompleted }) => {
   // Count active items
   const itemsLeft = todos.length - itemsCompleted;
 
-  // Display a message when the todo list is empty
+  // Display a message when the to-do list is empty
   if (todos.length === 0) {
     return (
       <div className={CONTAINER_CLASSES}>

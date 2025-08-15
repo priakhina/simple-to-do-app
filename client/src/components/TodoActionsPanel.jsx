@@ -37,12 +37,12 @@ const TodoActionsPanel = ({
           </button>
         )}
       </div>
-      {/* Modal dialog */}
+      {/* Modal dialog confirming the user's action - deleting all complete to-dos */}
       <ModalDialog
         open={showDialog}
         setOpen={setShowDialog}
-        dialogTitle='Delete completed todos'
-        dialogText={`Are you sure you want to delete all completed todos?\nThis action cannot be undone.`}
+        dialogTitle='Delete completed to-dos'
+        dialogText={`Are you sure you want to delete all completed to-dos?\nThis action cannot be undone.`}
         confirmButtonText='Delete'
         onConfirmDelete={actions.deleteCompleted}
       />
