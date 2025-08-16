@@ -1,6 +1,6 @@
 # Simple To-do App
 
-A simple full-stack app that allows users to manage their to-dos.
+A simple full-stack to-do application that allows users to view, create, update, delete, and filter their to-do items.
 
 Built with:
 
@@ -18,12 +18,14 @@ Built with:
 
 ## Project Overview
 
+### Features
+
 The app allows users to:
 
 - Add new to-dos to the list
-- Mark to-dos as complete/incomplete
+- Mark to-dos as completed
 - Delete to-dos from the list
-- Filter by all/active/complete to-dos
+- Filter by all/active/completed to-dos
 - Clear all completed to-dos
 - Toggle light and dark mode
 - View the optimal layout for the app depending on their device's screen size
@@ -94,13 +96,13 @@ This runs:
 
 ## Local Development
 
-Run frontend & backend together from root:
+Run **frontend & backend** together from the root folder:
 
 ```
 npm run dev
 ```
 
-This uses **concurrently**:
+This uses **concurrently** to start both servers:
 
 - `npm run dev --prefix client` → starts Vite dev server
 - `npm run dev --prefix server` → starts Express server
@@ -108,30 +110,36 @@ This uses **concurrently**:
 Frontend is available at:
 
 ```
-http://localhost:5173/
+http://localhost:5173
 ```
 
-Backend is available at:
+Backend API is available at:
 
 ```
-http://localhost:3001
+http://localhost:3001/api/todos
 ```
 
 ## Build and Production
 
-Build the frontend from root:
+### 1. Build the frontend from root:
 
 ```
 npm run build
 ```
 
-Start production server from root:
+### 2. Start production server from root:
 
 ```
 npm start
 ```
 
-In production, Express serves the built React app from `/client/dist`.
+In production, ***the Express app serves the built React app*** from `/client/dist`. The app is accessible on your server URL, e.g.:
+
+```
+http://localhost:3001
+```
+
+All API endpoints remain under `/api/todos`.
 
 ## Backend API Usage
 
@@ -143,6 +151,21 @@ The backend provides a simple REST API for managing todos.
 http://localhost:3001/api/todos
 ```
 
+### API Endpoints
+
+| Method  | Endpoint | Description |
+| ------------- | ------------- | ------------- |
+| GET  | `/api/todos` | Get all to-dos |
+| POST | `/api/todos` | Create a new to-do (required fields: `text` of type `string`) |
+| PUT | `/api/todos/:id` | Update an existing to-do (required fields: `text` of type `string`, `completed` of type `boolean`) |
+| DELETE | `/api/todos/:id` | Delete an existing to-do |
+| DELETE | `/api/todos/completed` | Delete all completed to-dos |
+
+> [!NOTE]  
+> Requests with invalid IDs return `404 Not Found`.
+>
+> Validation errors (missing or wrong type fields) return `404 Bad Request`.
+
 ### 1. Get all to-dos
 
 #### Endpoint:
@@ -152,6 +175,8 @@ GET /api/todos
 ```
 
 #### Response (200 OK):
+
+A list of all to-do items
 
 ```
 [
@@ -178,6 +203,8 @@ POST /api/todos
 
 #### Body:
 
+Required fields: `text` of type `string`
+
 ```
 {
   "text": "Cook dinner"
@@ -185,6 +212,8 @@ POST /api/todos
 ```
 
 #### Response (201 Created):
+
+A newly-created to-do item
 
 ```
 {
@@ -204,6 +233,10 @@ PUT /api/todos/:id
 
 #### Body:
 
+Required fields:
+- `text` of type `string`
+- `completed` of type `boolean`
+
 ```
 {
   "text": "Cook dinner",
@@ -212,6 +245,8 @@ PUT /api/todos/:id
 ```
 
 #### Response (200 OK):
+
+An updated to-do item
 
 ```
 {
@@ -233,7 +268,7 @@ DELETE /api/todos/:id
 
 No Content
 
-### 5. Delete all completed todos
+### 5. Delete all completed to-dos
 
 #### Endpoint:
 
@@ -242,6 +277,8 @@ DELETE /api/todos/completed
 ```
 
 #### Response (200 OK):
+
+An updated list of to-dos that contains only items marked as active (i.e., `completed` set to `false`)
 
 ```
 [
