@@ -67,7 +67,7 @@ todosRouter.put('/:id', (req, res, next) => {
 // Delete all completed to-dos
 todosRouter.delete('/completed', (_, res) => {
   todos.splice(0, todos.length, ...todos.filter((todo) => !todo.completed));
-  res.json(todos);
+  res.status(204).end();
 });
 
 // Delete an existing to-do

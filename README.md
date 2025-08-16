@@ -133,7 +133,7 @@ npm run build
 npm start
 ```
 
-In production, ***the Express app serves the built React app*** from `/client/dist`. The app is accessible on your server URL, e.g.:
+In production, **the Express app serves the built React app** from `/client/dist`. The app is accessible on your server URL, e.g.:
 
 ```
 http://localhost:3001
@@ -153,13 +153,13 @@ http://localhost:3001/api/todos
 
 ### API Endpoints
 
-| Method  | Endpoint | Description |
-| ------------- | ------------- | ------------- |
-| GET  | `/api/todos` | Get all to-dos |
-| POST | `/api/todos` | Create a new to-do (required fields: `text` of type `string`) |
-| PUT | `/api/todos/:id` | Update an existing to-do (required fields: `text` of type `string`, `completed` of type `boolean`) |
-| DELETE | `/api/todos/:id` | Delete an existing to-do |
-| DELETE | `/api/todos/completed` | Delete all completed to-dos |
+| Method | Endpoint               | Description                                                                                        |
+| ------ | ---------------------- | -------------------------------------------------------------------------------------------------- |
+| GET    | `/api/todos`           | Get all to-dos                                                                                     |
+| POST   | `/api/todos`           | Create a new to-do (required fields: `text` of type `string`)                                      |
+| PUT    | `/api/todos/:id`       | Update an existing to-do (required fields: `text` of type `string`, `completed` of type `boolean`) |
+| DELETE | `/api/todos/:id`       | Delete an existing to-do                                                                           |
+| DELETE | `/api/todos/completed` | Delete all completed to-dos                                                                        |
 
 > [!NOTE]  
 > Requests with invalid IDs return `404 Not Found`.
@@ -234,6 +234,7 @@ PUT /api/todos/:id
 #### Body:
 
 Required fields:
+
 - `text` of type `string`
 - `completed` of type `boolean`
 
@@ -276,16 +277,6 @@ No Content
 DELETE /api/todos/completed
 ```
 
-#### Response (200 OK):
+#### Response (204 No Content):
 
-An updated list of to-dos that contains only items marked as active (i.e., `completed` set to `false`)
-
-```
-[
-  {
-    "id": 1755273830080,
-    "text": "Do homework",
-    "completed": false
-  }
-]
-```
+No Content

@@ -75,8 +75,8 @@ function App() {
   // Handle deleting all to-dos that are marked as completed
   const handleDeleteCompleted = async () => {
     try {
-      const updatedTodos = await todoService.removeCompleted();
-      setTodos(updatedTodos);
+      await todoService.removeCompleted();
+      setTodos(todos.filter((todo) => !todo.completed));
     } catch (e) {
       if (e.response) {
         console.error('Backend error:', e.response.data);
