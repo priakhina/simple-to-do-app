@@ -1,16 +1,6 @@
-#root {
-  background: url('/images/bg-mobile-light.jpg') 0 0 no-repeat;
-  background-size: 100% 200px;
-}
-
-.dark #root {
-  background-image: url('/images/bg-mobile-dark.jpg');
-}
-
 html,
-body,
-#root {
-  min-height: 100%;
+body {
+  height: 100%;
 }
 
 body {
@@ -19,12 +9,21 @@ body {
   line-height: 1.5;
   font-weight: 400;
   color: #494c6b;
-  background: #fafafa;
 }
 
 .dark body {
   color: #c8cbe7;
-  background: #171823;
+}
+
+#root {
+  min-height: 100%;
+  background: #fafafa url('/images/bg-mobile-light.jpg') 0 0 no-repeat;
+  background-size: 100% 200px;
+}
+
+.dark #root {
+  background-color: #171823;
+  background-image: url('/images/bg-mobile-dark.jpg');
 }
 
 button {
