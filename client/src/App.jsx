@@ -20,8 +20,10 @@ function App() {
       const todos = await todoService.getAll();
       setTodos(todos);
     } catch (e) {
-      console.error('Failed to fetch to-dos');
-      console.error(e.message);
+      if (e.response) {
+        console.error('Backend error:', e.response.data);
+      }
+      console.error('Failed to fetch to-dos:', e);
     }
   };
 
@@ -31,8 +33,10 @@ function App() {
       const returnedTodo = await todoService.create(newTodo);
       setTodos([...todos, returnedTodo]);
     } catch (e) {
-      console.error('Failed to create a new to-do');
-      console.error(e.message);
+      if (e.response) {
+        console.error('Backend error:', e.response.data);
+      }
+      console.error('Failed to create a new to-do:', e);
     }
   };
 
@@ -48,8 +52,10 @@ function App() {
       });
       setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
     } catch (e) {
-      console.error('Failed to update a to-do');
-      console.error(e.message);
+      if (e.response) {
+        console.error('Backend error:', e.response.data);
+      }
+      console.error('Failed to update a to-do:', e);
     }
   };
 
@@ -59,8 +65,10 @@ function App() {
       await todoService.remove(id);
       setTodos(todos.filter((todo) => todo.id !== id));
     } catch (e) {
-      console.error('Failed to delete a to-do');
-      console.error(e.message);
+      if (e.response) {
+        console.error('Backend error:', e.response.data);
+      }
+      console.error('Failed to delete a to-do:', e);
     }
   };
 
@@ -70,8 +78,10 @@ function App() {
       const updatedTodos = await todoService.removeCompleted();
       setTodos(updatedTodos);
     } catch (e) {
-      console.error('Failed to delete completed to-dos');
-      console.error(e.message);
+      if (e.response) {
+        console.error('Backend error:', e.response.data);
+      }
+      console.error('Failed to delete completed to-dos:', e);
     }
   };
 
