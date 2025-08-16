@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const { unknownEndpoint, errorHandler } = require('./middleware/middleware');
 const todosRouter = require('./routes/todos');
 
 const app = express(); // An instance of an Express application
@@ -19,6 +20,9 @@ if (process.env.NODE_ENV === 'production') {
   const clientBuildPath = path.join(__dirname, '../client/dist');
   app.use(express.static(clientBuildPath));
 }
+
+app.use(unknownEndpoint); // Handle unknown endpoints
+app.use(errorHandler); // Centralized error handler (must always be last)
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
